@@ -53,11 +53,55 @@ UI resources are declared using the standard MCP resource pattern with specific 
 
 ```typescript
 interface UIResource {
-  uri: string;           // MUST start with 'ui://'
-  name: string;          // Human-readable identifier
-  description?: string;  // Description of the UI resource
-  mimeType: string;      // SHOULD be 'text/html+mcp' in MVP
-  _meta?: UIResourceMeta // Resource Metadata
+  /**
+   * Unique identifier for the UI resource
+   *
+   * MUST use the `ui://` URI scheme to distinguish UI resources from other
+   * MCP resource types.
+   *
+   * @example
+   * "ui://weather-dashboard"
+   */
+  uri: string;
+
+  /**
+   * Human-readable display name for the UI resource
+   *
+   * Used for listing and identifying the resource in host interfaces.
+   *
+   * @example
+   * "Weather Dashboard"
+   */
+  name: string;
+
+  /**
+   * Optional description of the UI resource's purpose and functionality
+   *
+   * Provides context about what the UI does and when to use it.
+   *
+   * @example
+   * "Interactive weather visualization with real-time updates"
+   */
+  description?: string;
+
+  /**
+   * MIME type of the UI content
+   *
+   * SHOULD be `text/html+mcp` for HTML-based UIs in the initial MVP.
+   * Other content types are reserved for future extensions.
+   *
+   * @example
+   * "text/html+mcp"
+   */
+  mimeType: string;
+
+  /**
+   * Resource metadata for security and rendering configuration
+   *
+   * Includes Content Security Policy configuration, dedicated domain settings,
+   * and visual preferences.
+   */
+  _meta?: UIResourceMeta
 }
 
 interface UIResourceMeta {
