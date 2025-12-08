@@ -258,11 +258,11 @@ type _VerifySandboxResourceReadyNotification = VerifySchemaMatches<
  * **Host → Guest UI**: Sent by the Host when the viewport size changes (e.g.,
  * window resize, orientation change). This allows the Guest UI to adjust its layout.
  *
- * @see {@link app.App.sendSizeChange} for the method to send this from Guest UI
- * @see {@link app.App.setupSizeChangeNotifications} for automatic size reporting
+ * @see {@link app.App.sendSizeChanged} for the method to send this from Guest UI
+ * @see {@link app.App.setupSizeChangedNotifications} for automatic size reporting
  */
-export interface McpUiSizeChangeNotification {
-  method: "ui/notifications/size-change";
+export interface McpUiSizeChangedNotification {
+  method: "ui/notifications/size-changed";
   params: {
     /** New width in pixels */
     width?: number;
@@ -272,11 +272,11 @@ export interface McpUiSizeChangeNotification {
 }
 
 /**
- * Runtime validation schema for {@link McpUiSizeChangeNotification}.
+ * Runtime validation schema for {@link McpUiSizeChangedNotification}.
  * @internal
  */
-export const McpUiSizeChangeNotificationSchema = z.object({
-  method: z.literal("ui/notifications/size-change"),
+export const McpUiSizeChangedNotificationSchema = z.object({
+  method: z.literal("ui/notifications/size-changed"),
   params: z.object({
     width: z.number().optional(),
     height: z.number().optional(),
@@ -285,8 +285,8 @@ export const McpUiSizeChangeNotificationSchema = z.object({
 
 /** @internal - Compile-time verification that schema matches interface */
 type _VerifySizeChangeNotification = VerifySchemaMatches<
-  typeof McpUiSizeChangeNotificationSchema,
-  McpUiSizeChangeNotification
+  typeof McpUiSizeChangedNotificationSchema,
+  McpUiSizeChangedNotification
 >;
 
 /**
