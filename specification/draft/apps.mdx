@@ -469,13 +469,6 @@ interface HostContext {
     | { width: number }       // If specified, container is fixed at this width
     | { maxWidth?: number }   // Otherwise, container width is determined by the UI width, up to this maximum width (if defined)
   );
-  /** Host window viewport dimensions */
-  viewport?: {
-    /** Window viewport width in pixels. */
-    width?: number;
-    /** Window viewport height in pixels. */
-    height?: number;
-  };
   /** User's language/region preference (BCP 47, e.g., "en-US") */
   locale?: string;
   /** User's timezone (IANA, e.g., "America/New_York") */
@@ -525,19 +518,16 @@ Example:
       },
       "displayMode": "inline",
       "containerDimensions": { "width": 400, "maxHeight": 600 }
-      "viewport": { "width": 1920, "height": 1080 },
     }
   }
 }
 ```
 
-### Viewport and Dimensions
+### Container Dimensions
 
-The `HostContext` provides two separate fields for sizing information:
+The `HostContext` provides sizing information via `containerDimensions`:
 
 - **`containerDimensions`**: The dimensions of the container that holds the app. This controls the actual space the app occupies within the host. Each dimension (height and width) operates independently and can be either **fixed** or **flexible**.
-
-- **`viewport`**: The host window's dimensions (e.g., `window.innerWidth` and `window.innerHeight`). Apps can use this to make responsive layout decisions based on the overall screen size.
 
 #### Dimension Modes
 
@@ -577,12 +567,6 @@ if (containerDimensions) {
     document.documentElement.style.maxWidth = `${containerDimensions.maxWidth}px`;
   }
   // If neither, width is unbounded
-}
-
-// Apps can also use viewport for additional data to make responsive layout decisions
-const viewport = hostContext.viewport;
-if (viewport?.width && viewport.width < 768) {
-  // Apply mobile-friendly layout
 }
 ```
 

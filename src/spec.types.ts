@@ -349,16 +349,6 @@ export interface McpUiHostContext {
           maxWidth?: number | undefined;
         }
     );
-  /**
-   * @description Window viewport dimensions. Represents the host window's viewport size,
-   * which provides additional information apps can use to make responsive layout decisions.
-   */
-  viewport?: {
-    /** @description Window viewport width in pixels. */
-    width?: number | undefined;
-    /** @description Window viewport height in pixels. */
-    height?: number | undefined;
-  };
   /** @description User's language and region preference in BCP 47 format. */
   locale?: string;
   /** @description User's timezone in IANA format. */

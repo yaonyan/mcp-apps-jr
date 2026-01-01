@@ -601,27 +601,6 @@ export const McpUiHostContextSchema = z
       .describe(
         "Container dimensions. Represents the dimensions of the iframe or other\ncontainer holding the app. Specify either width or maxWidth, and either height or maxHeight.",
       ),
-    /**
-     * @description Window viewport dimensions. Represents the host window's viewport size,
-     * which provides additional information apps can use to make responsive layout decisions.
-     */
-    viewport: z
-      .object({
-        /** @description Window viewport width in pixels. */
-        width: z
-          .union([z.number(), z.undefined()])
-          .optional()
-          .describe("Window viewport width in pixels."),
-        /** @description Window viewport height in pixels. */
-        height: z
-          .union([z.number(), z.undefined()])
-          .optional()
-          .describe("Window viewport height in pixels."),
-      })
-      .optional()
-      .describe(
-        "Window viewport dimensions. Represents the host window's viewport size,\nwhich provides additional information apps can use to make responsive layout decisions.",
-      ),
     /** @description User's language and region preference in BCP 47 format. */
     locale: z
       .string()
