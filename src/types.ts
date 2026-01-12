@@ -36,6 +36,8 @@ export {
   type McpUiOpenLinkResult,
   type McpUiMessageRequest,
   type McpUiMessageResult,
+  type McpUiUpdateModelContextRequest,
+  type McpUiSupportedContentBlockModalities,
   type McpUiSandboxProxyReadyNotification,
   type McpUiSandboxResourceReadyNotification,
   type McpUiSizeChangedNotification,
@@ -66,6 +68,7 @@ import type {
   McpUiInitializeRequest,
   McpUiOpenLinkRequest,
   McpUiMessageRequest,
+  McpUiUpdateModelContextRequest,
   McpUiResourceTeardownRequest,
   McpUiRequestDisplayModeRequest,
   McpUiHostContextChangedNotification,
@@ -94,6 +97,8 @@ export {
   McpUiOpenLinkResultSchema,
   McpUiMessageRequestSchema,
   McpUiMessageResultSchema,
+  McpUiUpdateModelContextRequestSchema,
+  McpUiSupportedContentBlockModalitiesSchema,
   McpUiSandboxProxyReadyNotificationSchema,
   McpUiSandboxResourceReadyNotificationSchema,
   McpUiSizeChangedNotificationSchema,
@@ -153,6 +158,7 @@ export type AppRequest =
   | McpUiInitializeRequest
   | McpUiOpenLinkRequest
   | McpUiMessageRequest
+  | McpUiUpdateModelContextRequest
   | McpUiResourceTeardownRequest
   | McpUiRequestDisplayModeRequest
   | CallToolRequest

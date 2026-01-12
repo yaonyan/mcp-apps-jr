@@ -83,6 +83,10 @@ export type McpUiResourceTeardownResultSchemaInferredType = z.infer<
   typeof generated.McpUiResourceTeardownResultSchema
 >;
 
+export type McpUiSupportedContentBlockModalitiesSchemaInferredType = z.infer<
+  typeof generated.McpUiSupportedContentBlockModalitiesSchema
+>;
+
 export type McpUiHostCapabilitiesSchemaInferredType = z.infer<
   typeof generated.McpUiHostCapabilitiesSchema
 >;
@@ -133,6 +137,10 @@ export type McpUiHostContextSchemaInferredType = z.infer<
 
 export type McpUiHostContextChangedNotificationSchemaInferredType = z.infer<
   typeof generated.McpUiHostContextChangedNotificationSchema
+>;
+
+export type McpUiUpdateModelContextRequestSchemaInferredType = z.infer<
+  typeof generated.McpUiUpdateModelContextRequestSchema
 >;
 
 export type McpUiInitializeRequestSchemaInferredType = z.infer<
@@ -223,6 +231,12 @@ expectType<spec.McpUiResourceTeardownResult>(
 expectType<McpUiResourceTeardownResultSchemaInferredType>(
   {} as spec.McpUiResourceTeardownResult,
 );
+expectType<spec.McpUiSupportedContentBlockModalities>(
+  {} as McpUiSupportedContentBlockModalitiesSchemaInferredType,
+);
+expectType<McpUiSupportedContentBlockModalitiesSchemaInferredType>(
+  {} as spec.McpUiSupportedContentBlockModalities,
+);
 expectType<spec.McpUiHostCapabilities>(
   {} as McpUiHostCapabilitiesSchemaInferredType,
 );
@@ -288,6 +302,12 @@ expectType<spec.McpUiHostContextChangedNotification>(
 );
 expectType<McpUiHostContextChangedNotificationSchemaInferredType>(
   {} as spec.McpUiHostContextChangedNotification,
+);
+expectType<spec.McpUiUpdateModelContextRequest>(
+  {} as McpUiUpdateModelContextRequestSchemaInferredType,
+);
+expectType<McpUiUpdateModelContextRequestSchemaInferredType>(
+  {} as spec.McpUiUpdateModelContextRequest,
 );
 expectType<spec.McpUiInitializeRequest>(
   {} as McpUiInitializeRequestSchemaInferredType,

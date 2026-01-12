@@ -162,6 +162,92 @@
             }
           },
           "additionalProperties": false
+        },
+        "updateModelContext": {
+          "description": "Host accepts context updates (ui/update-model-context) to be included in the model's context for future turns.",
+          "type": "object",
+          "properties": {
+            "text": {
+              "description": "Host supports text content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "image": {
+              "description": "Host supports image content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "audio": {
+              "description": "Host supports audio content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "resource": {
+              "description": "Host supports resource content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "resourceLink": {
+              "description": "Host supports resource link content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "structuredContent": {
+              "description": "Host supports structured content.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "message": {
+          "description": "Host supports receiving content messages (ui/message) from the Guest UI.",
+          "type": "object",
+          "properties": {
+            "text": {
+              "description": "Host supports text content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "image": {
+              "description": "Host supports image content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "audio": {
+              "description": "Host supports audio content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "resource": {
+              "description": "Host supports resource content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "resourceLink": {
+              "description": "Host supports resource link content blocks.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "structuredContent": {
+              "description": "Host supports structured content.",
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -2373,6 +2459,92 @@
                       }
                     }
                   },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "updateModelContext": {
+              "description": "Host accepts context updates (ui/update-model-context) to be included in the model's context for future turns.",
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Host supports text content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "image": {
+                  "description": "Host supports image content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "audio": {
+                  "description": "Host supports audio content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "resource": {
+                  "description": "Host supports resource content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "resourceLink": {
+                  "description": "Host supports resource link content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "structuredContent": {
+                  "description": "Host supports structured content.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "message": {
+              "description": "Host supports receiving content messages (ui/message) from the Guest UI.",
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Host supports text content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "image": {
+                  "description": "Host supports image content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "audio": {
+                  "description": "Host supports audio content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "resource": {
+                  "description": "Host supports resource content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "resourceLink": {
+                  "description": "Host supports resource link content blocks.",
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                },
+                "structuredContent": {
+                  "description": "Host supports structured content.",
+                  "type": "object",
+                  "properties": {},
                   "additionalProperties": false
                 }
               },
@@ -4631,6 +4803,49 @@
       ],
       "description": "Style variables for theming MCP apps.\n\nIndividual style keys are optional - hosts may provide any subset of these values.\nValues are strings containing CSS values (colors, sizes, font stacks, etc.).\n\nNote: This type uses `Record<K, string | undefined>` rather than `Partial<Record<K, string>>`\nfor compatibility with Zod schema generation. Both are functionally equivalent for validation."
     },
+    "McpUiSupportedContentBlockModalities": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "text": {
+          "description": "Host supports text content blocks.",
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "image": {
+          "description": "Host supports image content blocks.",
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "audio": {
+          "description": "Host supports audio content blocks.",
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "resource": {
+          "description": "Host supports resource content blocks.",
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "resourceLink": {
+          "description": "Host supports resource link content blocks.",
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "structuredContent": {
+          "description": "Host supports structured content.",
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "McpUiTheme": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "anyOf": [
@@ -5138,6 +5353,351 @@
         }
       ],
       "description": "Tool visibility scope - who can access the tool."
+    },
+    "McpUiUpdateModelContextRequest": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "const": "ui/update-model-context"
+        },
+        "params": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "description": "Context content blocks (text, image, etc.).",
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "const": "text"
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "annotations": {
+                        "type": "object",
+                        "properties": {
+                          "audience": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": ["user", "assistant"]
+                            }
+                          },
+                          "priority": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "lastModified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "_meta": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {}
+                      }
+                    },
+                    "required": ["type", "text"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "const": "image"
+                      },
+                      "data": {
+                        "type": "string"
+                      },
+                      "mimeType": {
+                        "type": "string"
+                      },
+                      "annotations": {
+                        "type": "object",
+                        "properties": {
+                          "audience": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": ["user", "assistant"]
+                            }
+                          },
+                          "priority": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "lastModified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "_meta": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {}
+                      }
+                    },
+                    "required": ["type", "data", "mimeType"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "const": "audio"
+                      },
+                      "data": {
+                        "type": "string"
+                      },
+                      "mimeType": {
+                        "type": "string"
+                      },
+                      "annotations": {
+                        "type": "object",
+                        "properties": {
+                          "audience": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": ["user", "assistant"]
+                            }
+                          },
+                          "priority": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "lastModified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "_meta": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {}
+                      }
+                    },
+                    "required": ["type", "data", "mimeType"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "icons": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "src": {
+                              "type": "string"
+                            },
+                            "mimeType": {
+                              "type": "string"
+                            },
+                            "sizes": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "theme": {
+                              "type": "string",
+                              "enum": ["light", "dark"]
+                            }
+                          },
+                          "required": ["src"],
+                          "additionalProperties": false
+                        }
+                      },
+                      "uri": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "mimeType": {
+                        "type": "string"
+                      },
+                      "annotations": {
+                        "type": "object",
+                        "properties": {
+                          "audience": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": ["user", "assistant"]
+                            }
+                          },
+                          "priority": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "lastModified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "_meta": {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": {}
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "resource_link"
+                      }
+                    },
+                    "required": ["name", "uri", "type"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "const": "resource"
+                      },
+                      "resource": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "uri": {
+                                "type": "string"
+                              },
+                              "mimeType": {
+                                "type": "string"
+                              },
+                              "_meta": {
+                                "type": "object",
+                                "propertyNames": {
+                                  "type": "string"
+                                },
+                                "additionalProperties": {}
+                              },
+                              "text": {
+                                "type": "string"
+                              }
+                            },
+                            "required": ["uri", "text"],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "uri": {
+                                "type": "string"
+                              },
+                              "mimeType": {
+                                "type": "string"
+                              },
+                              "_meta": {
+                                "type": "object",
+                                "propertyNames": {
+                                  "type": "string"
+                                },
+                                "additionalProperties": {}
+                              },
+                              "blob": {
+                                "type": "string"
+                              }
+                            },
+                            "required": ["uri", "blob"],
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      "annotations": {
+                        "type": "object",
+                        "properties": {
+                          "audience": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": ["user", "assistant"]
+                            }
+                          },
+                          "priority": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          "lastModified": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "_meta": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {}
+                      }
+                    },
+                    "required": ["type", "resource"],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "structuredContent": {
+              "description": "Structured content for machine-readable context data.",
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "description": "Structured content for machine-readable context data."
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["method", "params"],
+      "additionalProperties": false
     }
   }
 }

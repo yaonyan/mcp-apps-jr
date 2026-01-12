@@ -979,6 +979,49 @@ Guest UI behavior:
 * Guest UI SHOULD check `availableDisplayModes` in host context before requesting a mode change.
 * Guest UI MUST handle the response mode differing from the requested mode.
 
+`ui/update-model-context` - Update the model context
+
+```typescript
+// Request
+{
+  jsonrpc: "2.0",
+  id: 3,
+  method: "ui/update-model-context",
+  params: {
+    content?: ContentBlock[],
+    structuredContent?: Record<string, unknown>
+  }
+}
+
+// Success Response
+{
+  jsonrpc: "2.0",
+  id: 3,
+  result: {}  // Empty result on success
+}
+
+// Error Response (if denied or failed)
+{
+  jsonrpc: "2.0",
+  id: 3,
+  error: {
+    code: -32000,  // Implementation-defined error
+    message: "Context update denied" | "Invalid content format"
+  }
+}
+```
+
+Guest UI MAY send this request to update the Host's model context. This context will be used in future turns. Each request overwrites the previous context sent by the Guest UI.
+This event serves a different use case from `notifications/message` (logging) and `ui/message` (which also trigger follow-ups).
+
+Host behavior:
+- SHOULD provide the context to the model in future turns
+- MAY overwrite the previous model context with the new update
+- MAY defer sending the context to the model until the next user message (including `ui/message`)
+- MAY dedupe identical `ui/update-model-context` calls
+- If multiple updates are received before the next user message, Host SHOULD only send the last update to the model
+- MAY display context updates to the user
+
 #### Notifications (Host → UI)
 
 `ui/notifications/tool-input` - Host MUST send this notification with the complete tool arguments after the Guest UI's initialize request completes.
@@ -1222,10 +1265,15 @@ sequenceDiagram
       H-->>UI: ui/notifications/tool-result
     else Message
       UI ->> H: ui/message
+      H -->> UI: ui/message response
       H -->> H: Process message and follow up
-    else Notify
+    else Context update
+      UI ->> H: ui/update-model-context
+      H ->> H: Store model context (overwrite existing)
+      H -->> UI: ui/update-model-context response
+    else Log
       UI ->> H: notifications/message
-      H ->> H: Process notification and store in context
+      H ->> H: Record log for debugging/telemetry
     else Resource read
       UI ->> H: resources/read
       H ->> S: resources/read
