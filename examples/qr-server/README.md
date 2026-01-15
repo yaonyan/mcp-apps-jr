@@ -24,7 +24,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```bash
 # Run server (HTTP mode) - uv handles dependencies automatically
 uv run server.py
-# → QR Server listening on http://localhost:3108/mcp
+# → QR Code Server listening on http://localhost:3108/mcp
 ```
 
 ## Usage

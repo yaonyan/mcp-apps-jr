@@ -27,7 +27,7 @@ WIDGET_URI = "ui://qr-server/widget.html"
 HOST = os.environ.get("HOST", "0.0.0.0")  # 0.0.0.0 for Docker compatibility
 PORT = int(os.environ.get("PORT", "3108"))
 
-mcp = FastMCP("QR Server", port=PORT, stateless_http=True)
+mcp = FastMCP("QR Code Server", port=PORT, stateless_http=True)
 
 
 @mcp.tool(meta={"ui/resourceUri": WIDGET_URI})
@@ -132,5 +132,5 @@ if __name__ == "__main__":
             allow_methods=["*"],
             allow_headers=["*"],
         )
-        print(f"QR Server listening on http://{HOST}:{PORT}/mcp")
+        print(f"QR Code Server listening on http://{HOST}:{PORT}/mcp")
         uvicorn.run(app, host=HOST, port=PORT)
