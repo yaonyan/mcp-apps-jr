@@ -18,49 +18,41 @@ Set {@link types!McpUiToolMeta.visibility Tool.\_meta.ui.visibility} to `["app"]
   - See [PDF example](https://github.com/modelcontextprotocol/ext-apps/blob/main/examples/pdf-viewer) to read binaries by chunks to avoid call tool size limitations on platforms like claude.ai
 - Pass auth token in `_meta` (will be loaded again in the future) + refresh token + store in local storage (see Persist data section below)
 
-{@includeCode ./patterns.ts#authenticatedCalls}
+{@includeCode ./patterns.tsx#authenticatedCalls}
 
 ## [TODO] Giving errors back to model
 
 - Before app runs: validate inputs in tool call
 - After it runs: use `updateModelContext`
 
-{@includeCode ./patterns.ts#errorsToModel}
+{@includeCode ./patterns.tsx#errorsToModel}
 
-## Support native host styling using CSS variables
+## Matching host styling (CSS variables, theme, and fonts)
 
-Hosts provide CSS variables (e.g., `--color-background-primary`) that match their theme. Apply these to the document, then use them in your styles via `var()`.
+Use the SDK's style helpers to apply host styling, then reference them in your CSS:
+
+- **CSS variables** — Use `var(--color-background-primary)`, etc. in your CSS
+- **Theme** — Use `[data-theme="dark"]` selectors or `light-dark()` function for theme-aware styles
+- **Fonts** — Use `var(--font-sans)` or `var(--font-mono)` with fallbacks (e.g., `font-family: var(--font-sans, system-ui, sans-serif)`)
 
 **Vanilla JS:**
 
-{@includeCode ../src/styles.examples.ts#applyHostStyleVariables_fromHostContext}
+{@includeCode ./patterns.tsx#hostStylingVanillaJs}
 
 **React:**
 
-{@includeCode ../src/react/useHostStyles.examples.tsx#useHostStyles_basicUsage}
-
-## Reacting to light/dark theme changes
-
-The host provides a `theme` value (`"light"` or `"dark"`) in the context. Apply it to `<html data-theme="...">` so you can use CSS selectors like `[data-theme="dark"]` for styling.
-
-**Vanilla JS:**
-
-{@includeCode ../src/styles.examples.ts#applyDocumentTheme_fromHostContext}
-
-**React:** `useHostStyles()` (shown above) applies theme automatically. To read the theme reactively for conditional rendering:
-
-{@includeCode ../src/react/useDocumentTheme.examples.tsx#useDocumentTheme_conditionalRender}
+{@includeCode ./patterns.tsx#hostStylingReact}
 
 ## [TODO] Support fullscreen / exit fullscreen
 
-{@includeCode ./patterns.ts#fullscreen}
+{@includeCode ./patterns.tsx#fullscreen}
 
 ## [TODO] Persist data (incl. widget state)
 
 - Note: OAI's `window.openai.setWidgetState({modelContent, privateContent, imageIds})` has only a partial equivalent in the MCP Apps spec (for now!): `App.updateModelContext({content, structuredContent})`
 - For data persistence / to reload when conversation is reloaded, you must use localStorage / IndexedDb with `hostInfo.toolInfo.id` as key returned `CallToolResult._meta.widgetUUID = randomUUID()`
 
-{@includeCode ./patterns.ts#persistData}
+{@includeCode ./patterns.tsx#persistData}
 
 ## [TODO] Lower perceived latency / manage loading time
 
@@ -68,13 +60,13 @@ Leverage partial inputs to show widgets as possible.
 
 Beware of partial JSON being partial (but healed), so some of your objects may not be complete (e.g. in a list you may need to skip the last item if your code validates input schemas strictly).
 
-{@includeCode ./patterns.ts#lowerPerceivedLatency}
+{@includeCode ./patterns.tsx#lowerPerceivedLatency}
 
 ## [TODO] Supporting both iframe & MCP Apps in same binary
 
 See recipe: https://github.com/modelcontextprotocol/ext-apps/issues/34
 
-{@includeCode ./patterns.ts#iframeAndMcpApps}
+{@includeCode ./patterns.tsx#iframeAndMcpApps}
 
 ## [TODO] Migrating from OpenAI to MCP Apps
 
@@ -82,4 +74,4 @@ See [OpenAI -> MCP Apps](https://docs.google.com/document/d/13ROImOR9B8xc32yhqsF
 
 Also: [Managing State](https://platform.openai.com/docs/actions/managing-state) (OpenAI)
 
-{@includeCode ./patterns.ts#migrateFromOpenai}
+{@includeCode ./patterns.tsx#migrateFromOpenai}

@@ -91,11 +91,20 @@ function applyHostStyleVariables_toElement(app: App) {
  */
 function applyHostFonts_fromHostContext(app: App) {
   //#region applyHostFonts_fromHostContext
+  // Apply when host context changes
   app.onhostcontextchanged = (params) => {
     if (params.styles?.css?.fonts) {
       applyHostFonts(params.styles.css.fonts);
     }
   };
+
+  // Apply initial fonts after connecting
+  app.connect().then(() => {
+    const ctx = app.getHostContext();
+    if (ctx?.styles?.css?.fonts) {
+      applyHostFonts(ctx.styles.css.fonts);
+    }
+  });
   //#endregion applyHostFonts_fromHostContext
 }
 

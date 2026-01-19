@@ -8,6 +8,13 @@
  */
 
 import { App } from "../src/app.js";
+import {
+  applyDocumentTheme,
+  applyHostFonts,
+  applyHostStyleVariables,
+} from "../src/styles.js";
+import type { McpUiHostContext } from "../src/types.js";
+import { useApp, useHostStyles } from "../src/react/index.js";
 
 /**
  * Example: Authenticated calls from App
@@ -29,6 +36,65 @@ function errorsToModel(app: App) {
   // After it runs: updateModelContext
   // TODO: Complete implementation
   //#endregion errorsToModel
+}
+
+/**
+ * Example: Unified host styling (theme, CSS variables, fonts)
+ */
+function hostStylingVanillaJs(app: App) {
+  //#region hostStylingVanillaJs
+  function applyHostContext(ctx: McpUiHostContext) {
+    if (ctx.theme) {
+      applyDocumentTheme(ctx.theme);
+    }
+    if (ctx.styles?.variables) {
+      applyHostStyleVariables(ctx.styles.variables);
+    }
+    if (ctx.styles?.css?.fonts) {
+      applyHostFonts(ctx.styles.css.fonts);
+    }
+  }
+
+  // Apply when host context changes
+  app.onhostcontextchanged = applyHostContext;
+
+  // Apply initial styles after connecting
+  app.connect().then(() => {
+    const ctx = app.getHostContext();
+    if (ctx) {
+      applyHostContext(ctx);
+    }
+  });
+  //#endregion hostStylingVanillaJs
+}
+
+/**
+ * Example: Host styling with React (CSS variables, theme, fonts)
+ */
+function hostStylingReact() {
+  //#region hostStylingReact
+  function MyApp() {
+    const { app } = useApp({
+      appInfo: { name: "MyApp", version: "1.0.0" },
+      capabilities: {},
+    });
+
+    // Apply all host styles (variables, theme, fonts)
+    useHostStyles(app, app?.getHostContext());
+
+    return (
+      <div
+        style={{
+          background: "var(--color-background-primary)",
+          fontFamily: "var(--font-sans)",
+        }}
+      >
+        <p>Styled with host CSS variables and fonts</p>
+        <p className="theme-aware">Uses [data-theme] selectors</p>
+      </div>
+    );
+  }
+  //#endregion hostStylingReact
 }
 
 /**
@@ -87,6 +153,8 @@ function migrateFromOpenai() {
 // Suppress unused variable warnings
 void authenticatedCalls;
 void errorsToModel;
+void hostStylingVanillaJs;
+void hostStylingReact;
 void fullscreen;
 void persistData;
 void lowerPerceivedLatency;
