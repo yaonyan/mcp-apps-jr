@@ -12,13 +12,17 @@ Set {@link types!McpUiToolMeta.visibility Tool.\_meta.ui.visibility} to `["app"]
 
 {@includeCode ../src/server/index.examples.ts#registerAppTool_appOnlyVisibility}
 
-## [TODO] Authenticated calls from App
+## Reading large amounts of data via chunked tool calls
 
-- Use tool calls / read resources
-  - See [PDF example](https://github.com/modelcontextprotocol/ext-apps/blob/main/examples/pdf-viewer) to read binaries by chunks to avoid call tool size limitations on platforms like claude.ai
-- Pass auth token in `_meta` (will be loaded again in the future) + refresh token + store in local storage (see Persist data section below)
+Some host platforms have size limits on tool call responses, so large files (PDFs, images, etc.) cannot be sent in a single response. Use an app-only tool with chunked responses to bypass these limits while keeping the data out of model context.
 
-{@includeCode ./patterns.tsx#authenticatedCalls}
+**Server-side**: Register an app-only tool that returns data in chunks with pagination metadata:
+
+{@includeCode ./patterns.tsx#chunkedDataServer}
+
+**Client-side**: Loop calling the tool until all chunks are received:
+
+{@includeCode ./patterns.tsx#chunkedDataClient}
 
 ## Giving errors back to model
 

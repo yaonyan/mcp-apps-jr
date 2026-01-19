@@ -17,16 +17,133 @@ import { randomUUID } from "node:crypto";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import type { McpUiHostContext } from "../src/types.js";
 import { useApp, useHostStyles } from "../src/react/index.js";
+import { registerAppTool } from "../src/server/index.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
 
 /**
- * Example: Authenticated calls from App
+ * Example: Server-side chunked data tool (app-only)
  */
-function authenticatedCalls(app: App) {
-  //#region authenticatedCalls
-  // TODO: Use tool calls / read resources
-  // See PDF example to read binaries by chunks
-  // Pass auth token in _meta + refresh token + store in local storage
-  //#endregion authenticatedCalls
+function chunkedDataServer(server: McpServer) {
+  //#region chunkedDataServer
+  // Define the chunk response schema
+  const DataChunkSchema = z.object({
+    bytes: z.string(), // base64-encoded data
+    offset: z.number(),
+    byteCount: z.number(),
+    totalBytes: z.number(),
+    hasMore: z.boolean(),
+  });
+
+  const MAX_CHUNK_BYTES = 500 * 1024; // 500KB per chunk
+
+  registerAppTool(
+    server,
+    "read_data_bytes",
+    {
+      title: "Read Data Bytes",
+      description: "Load binary data in chunks",
+      inputSchema: {
+        id: z.string().describe("Resource identifier"),
+        offset: z.number().min(0).default(0).describe("Byte offset"),
+        byteCount: z
+          .number()
+          .default(MAX_CHUNK_BYTES)
+          .describe("Bytes to read"),
+      },
+      outputSchema: DataChunkSchema,
+      // Hidden from model - only callable by the App
+      _meta: { ui: { visibility: ["app"] } },
+    },
+    async ({ id, offset, byteCount }): Promise<CallToolResult> => {
+      const data = await loadData(id); // Your data loading logic
+      const chunk = data.slice(offset, offset + byteCount);
+
+      return {
+        content: [{ type: "text", text: `${chunk.length} bytes at ${offset}` }],
+        structuredContent: {
+          bytes: Buffer.from(chunk).toString("base64"),
+          offset,
+          byteCount: chunk.length,
+          totalBytes: data.length,
+          hasMore: offset + chunk.length < data.length,
+        },
+      };
+    },
+  );
+  //#endregion chunkedDataServer
+}
+
+// Stub for the example
+declare function loadData(id: string): Promise<Uint8Array>;
+
+/**
+ * Example: Client-side chunked data loading
+ */
+function chunkedDataClient(app: App, resourceId: string) {
+  //#region chunkedDataClient
+  interface DataChunk {
+    bytes: string; // base64
+    offset: number;
+    byteCount: number;
+    totalBytes: number;
+    hasMore: boolean;
+  }
+
+  async function loadDataInChunks(
+    id: string,
+    onProgress?: (loaded: number, total: number) => void,
+  ): Promise<Uint8Array> {
+    const CHUNK_SIZE = 500 * 1024; // 500KB chunks
+    const chunks: Uint8Array[] = [];
+    let offset = 0;
+    let totalBytes = 0;
+    let hasMore = true;
+
+    while (hasMore) {
+      const result = await app.callServerTool({
+        name: "read_data_bytes",
+        arguments: { id, offset, byteCount: CHUNK_SIZE },
+      });
+
+      if (result.isError || !result.structuredContent) {
+        throw new Error("Failed to load data chunk");
+      }
+
+      const chunk = result.structuredContent as unknown as DataChunk;
+      totalBytes = chunk.totalBytes;
+      hasMore = chunk.hasMore;
+
+      // Decode base64 to bytes
+      const binaryString = atob(chunk.bytes);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      chunks.push(bytes);
+
+      offset += chunk.byteCount;
+      onProgress?.(offset, totalBytes);
+    }
+
+    // Combine all chunks into single array
+    const fullData = new Uint8Array(totalBytes);
+    let pos = 0;
+    for (const chunk of chunks) {
+      fullData.set(chunk, pos);
+      pos += chunk.length;
+    }
+
+    return fullData;
+  }
+
+  // Usage: load data with progress updates
+  loadDataInChunks(resourceId, (loaded, total) => {
+    console.log(`Loading: ${Math.round((loaded / total) * 100)}%`);
+  }).then((data) => {
+    console.log(`Loaded ${data.length} bytes`);
+  });
+  //#endregion chunkedDataClient
 }
 
 /**
@@ -208,7 +325,8 @@ function migrateFromOpenai() {
 }
 
 // Suppress unused variable warnings
-void authenticatedCalls;
+void chunkedDataServer;
+void chunkedDataClient;
 void hostStylingVanillaJs;
 void hostStylingReact;
 void persistWidgetStateServer;
