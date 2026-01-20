@@ -48,7 +48,7 @@ Run directly from GitHub using the official `uv` Docker image:
 ```bash
 docker run --rm -it \
   -p 3109:3109 \
-  -v ~/.cache/huggingface:/root/.cache/huggingface \
+  -v ~/.cache/huggingface-docker-say-server:/root/.cache/huggingface \
   ghcr.io/astral-sh/uv:debian \
   uv run https://raw.githubusercontent.com/modelcontextprotocol/ext-apps/main/examples/say-server/server.py
 ```
