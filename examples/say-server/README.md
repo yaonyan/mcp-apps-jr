@@ -4,13 +4,7 @@ A real-time text-to-speech MCP App with karaoke-style text highlighting, powered
 
 ## MCP Client Configuration
 
-First, clone the repository:
-
-```bash
-git clone https://github.com/modelcontextprotocol/ext-apps.git
-```
-
-Then add to your MCP client configuration (stdio transport), replacing the path with your clone location:
+Add to your MCP client configuration (stdio transport):
 
 ```json
 {
@@ -19,7 +13,9 @@ Then add to your MCP client configuration (stdio transport), replacing the path 
       "command": "uv",
       "args": [
         "run",
-        "/path/to/ext-apps/examples/say-server/server.py",
+        "--default-index",
+        "https://pypi.org/simple",
+        "https://raw.githubusercontent.com/modelcontextprotocol/ext-apps/refs/heads/main/examples/say-server/server.py",
         "--stdio"
       ]
     }

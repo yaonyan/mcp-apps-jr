@@ -289,7 +289,9 @@ Add to your MCP client configuration (stdio transport):
       "command": "uv",
       "args": [
         "run",
-        "/path/to/ext-apps/examples/say-server/server.py",
+        "--default-index",
+        "https://pypi.org/simple",
+        "https://raw.githubusercontent.com/modelcontextprotocol/ext-apps/refs/heads/main/examples/say-server/server.py",
         "--stdio"
       ]
     }
@@ -297,7 +299,7 @@ Add to your MCP client configuration (stdio transport):
 }
 ```
 
-> **Note:** The `qr` and `say` servers require cloning the repository first. See [qr-server](examples/qr-server) and [say-server](examples/say-server) READMEs for details.
+> **Note:** The `qr` server requires cloning the repository first. See [qr-server README](examples/qr-server) for details.
 
 </details>
 
