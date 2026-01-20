@@ -2,6 +2,31 @@
 
 A real-time text-to-speech MCP App with karaoke-style text highlighting, powered by [Kyutai's Pocket TTS](https://github.com/kyutai-labs/pocket-tts).
 
+## MCP Client Configuration
+
+First, clone the repository:
+
+```bash
+git clone https://github.com/modelcontextprotocol/ext-apps.git
+```
+
+Then add to your MCP client configuration (stdio transport), replacing the path with your clone location:
+
+```json
+{
+  "mcpServers": {
+    "say": {
+      "command": "uv",
+      "args": [
+        "run",
+        "/path/to/ext-apps/examples/say-server/server.py",
+        "--stdio"
+      ]
+    }
+  }
+}
+```
+
 ## MCP App Features Demonstrated
 
 This example showcases several MCP App capabilities:

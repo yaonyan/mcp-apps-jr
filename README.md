@@ -284,12 +284,20 @@ Add to your MCP client configuration (stdio transport):
         "/path/to/ext-apps/examples/qr-server/server.py",
         "--stdio"
       ]
+    },
+    "say": {
+      "command": "uv",
+      "args": [
+        "run",
+        "/path/to/ext-apps/examples/say-server/server.py",
+        "--stdio"
+      ]
     }
   }
 }
 ```
 
-> **Note:** The `qr` server requires cloning the repository first. See [qr-server README](examples/qr-server) for details.
+> **Note:** The `qr` and `say` servers require cloning the repository first. See [qr-server](examples/qr-server) and [say-server](examples/say-server) READMEs for details.
 
 </details>
 
